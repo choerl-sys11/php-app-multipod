@@ -1,0 +1,19 @@
+kind: Pod
+apiVersion: v1
+metadata:
+  name: phpfpm
+  namespace: demo
+  labels:
+    app: phpfpm
+spec:
+  volumes:
+    - name: phpfpm-application
+      configMap:
+        name: phpfpm-application
+  containers:
+    - image: php:8.0.9-fpm-alpine
+      name: phpfpm
+      volumeMounts:
+        - name: phpfpm-application
+          mountPath: /app/index.php
+          subPath: index.php
